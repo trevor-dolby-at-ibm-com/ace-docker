@@ -10,6 +10,11 @@ ARG DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/
 # Can be set higher if needed
 ARG DOWNLOAD_CONNECTION_COUNT=1
 
+# If specified, this triggers an install of the MQ client libraries. Should be set to
+# https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqdev/redist/9.4.1.0-IBM-MQC-Redist-LinuxX64.tar.gz
+# or equivalent. If set, the image would normally be tagged as ace-minimal:13.0.1.0-alpine-mqclient
+ARG MQ_DOWNLOAD_URL
+
 RUN apk --update add --no-cache --virtual .build-deps curl binutils zstd \
     && set -x \
     && GLIBC_VER="2.34-r0" \
@@ -126,6 +131,23 @@ RUN ( echo "Passw0rd" ; echo "Passw0rd" ) | adduser -u 1001 -h /home/aceuser -s 
 
 # Switch off the components that aren't in the image
 COPY minimal-image.components.yaml /opt/ibm/ace-13/image.components.yaml
+
+# Install MQ client libraries and hack the results to keep the image small enough to
+# fit in the IBM Cloud Container Registry free tier with a limit of 512MB; the 32-bit
+# programs and libraries don't actually work in this container anyway as compatibility
+# libraries would also be needed, and we're running an English-only ACE install.
+RUN if [ -z $MQ_DOWNLOAD_URL ]; then echo "Not installing an MQ client"; else \
+    mkdir /opt/mqm && \
+    chmod 775 /opt/mqm && \
+    cd /tmp && \
+    aria2c -o mq-client.tar.gz  ${MQ_DOWNLOAD_URL} && \
+    tar -xf /tmp/mq-client.tar.gz --directory /opt/mqm && \
+    rm /tmp/mq-client.tar.gz && \
+    rm -rf /opt/mqm/gskit8/bin/gsk8capicmd /opt/mqm/gskit8/lib /opt/mqm/lib/lib*.so /opt/mqm/samp/dotnet /opt/mqm/msg/cs_CZ /opt/mqm/msg/de_DE /opt/mqm/msg/es_ES /opt/mqm/msg/fr_FR /opt/mqm/msg/hu_HU /opt/mqm/msg/it_IT /opt/mqm/msg/ja_JP /opt/mqm/msg/ko_KR /opt/mqm/msg/pl_PL /opt/mqm/msg/pt_BR /opt/mqm/msg/ru_RU /opt/mqm/msg/zh_CN /opt/mqm/msg/zh_TW ; \
+    fi
+
+# Kaniko seems to chmod this directory 755 by mistake sometimes, which causes trouble later
+RUN chmod 1777 /tmp
 
 # aceuser
 USER 1001
