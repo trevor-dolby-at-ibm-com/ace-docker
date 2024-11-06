@@ -1,14 +1,14 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 MAINTAINER Trevor Dolby <trevor.dolby@ibm.com> (@trevor-dolby-at-ibm-com)
 
 # Build:
 #
-# docker build -t ace-devcontainer:12.0.10.0 -f Dockerfile .
+# docker build -t ace-devcontainer:13.0.1.0 -f Dockerfile .
 
 # Later versions from the same site, or else via the Developer edition download site linked from
 # https://www.ibm.com/docs/en/app-connect/12.0?topic=enterprise-download-ace-developer-edition-get-started
-ARG DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/12.0.10.0-ACE-LINUX64-DEVELOPER.tar.gz
+ARG DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/13.0.1.0-ACE-LINUX64-DEVELOPER.tar.gz
 # Can be set higher if needed
 ARG DOWNLOAD_CONNECTION_COUNT=1
 
@@ -19,8 +19,6 @@ ENV DEBIAN_FRONTEND noninteractive
 COPY excludes*txt /tmp/
 
 RUN cat /tmp/excludes-base.txt >> /tmp/all-excludes.txt && \
-# Java11 is not required
-    cat /tmp/excludes-java11.txt >> /tmp/all-excludes.txt && \
 # ToolkitDiscovery connectors are optional
     cat /tmp/excludes-nodejs-all.txt >> /tmp/all-excludes.txt && \
 # Toolkit is optional
@@ -44,6 +42,7 @@ RUN apt-get update && apt-get install -y aria2 zip binutils && \
     zip -d /opt/ibm/ace-13/common/classes/IntegrationAPI.jar BIPmsgs_de.properties BIPmsgs_es.properties BIPmsgs_fr.properties BIPmsgs_it.properties BIPmsgs_ja.properties BIPmsgs_ko.properties BIPmsgs_pl.properties BIPmsgs_pt_BR.properties BIPmsgs_ru.properties BIPmsgs_tr.properties BIPmsgs_zh.properties BIPmsgs_zh_HK.properties BIPmsgs_zh_TW.properties && \
     if [ $(uname -m) = x86_64 ]; then apt-get remove -y zip binutils binutils-common libbinutils binutils-x86-64-linux-gnu; else apt-get remove -y zip binutils binutils-common libbinutils; fi && \
     rm -rf /var/lib/apt/lists/*  && \
+    rm -rf /opt/ibm/ace-13/common/java17/jmods && \
     /opt/ibm/ace-13/ace make registry global accept license deferred
 
 # Source profile automatically

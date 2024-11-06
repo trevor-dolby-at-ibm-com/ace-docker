@@ -21,14 +21,14 @@ Tekton to build the image, the URL is the `aceDownloadUrl` value in ace-minimal-
 
 This value may need updating, either to another version in the same server directory
 (if available) or else to an ACE developer edition URL from the IBM website. In the latter
-case, start at https://www.ibm.com/docs/en/app-connect/12.0?topic=enterprise-download-ace-developer-edition-get-started
+case, start at https://www.ibm.com/docs/en/app-connect/13.0?topic=enterprise-download-ace-developer-edition-get-started
 and proceed through the pages until the main download page with a link: 
 
 ![download page](ace-dev-edition-download.png)
 
 The link is likely to be of the form
 ```
-https://iwm.dhe.ibm.com/sdfdl/v2/regs2/mbford/Xa.2/Xb.WJL1cUPI9gANEhP8GuPD_qX1rj6x5R4yTUM7s_C2ue8/Xc.12.0.10.0-ACE-LINUX64-DEVELOPER.tar.gz/Xd./Xf.LpR.D1vk/Xg.12164875/Xi.swg-wmbfd/XY.regsrvs/XZ.pPVETUejcqPsVfDVKbdNu6IRpo4TkyKu/12.0.10.0-ACE-LINUX64-DEVELOPER.tar.gz
+https://iwm.dhe.ibm.com/sdfdl/v2/regs2/mbford/Xa.2/Xb.WJL1cUPI9gANEhP8GuPD_qX1rj6x5R4yTUM7s_C2ue8/Xc.13.0.1.0-ACE-LINUX64-DEVELOPER.tar.gz/Xd./Xf.LpR.D1vk/Xg.12164875/Xi.swg-wmbfd/XY.regsrvs/XZ.pPVETUejcqPsVfDVKbdNu6IRpo4TkyKu/13.0.1.0-ACE-LINUX64-DEVELOPER.tar.gz
 ```
 Copy that link into the aceDownloadUrl parameter or use it as the DOWNLOAD_URL build
 parameter, adjusting the version numbers in the other files and parameters as needed.
@@ -37,18 +37,32 @@ parameter, adjusting the version numbers in the other files and parameters as ne
 
 To run the sample after building:
 ```
-docker run -e LICENSE=accept --rm -ti ace-sample:12.0.10.0-alpine
+docker run -e LICENSE=accept --rm -ti ace-sample:13.0.1.0-alpine
 ```
 and then `curl http://[container IP]:7800/test` should return '{"data":"a string from ACE"}'
 
 ## Various sizes
+
 Local on Ubuntu with defaults in Dockerfiles:
 
 ```
-ace-basic        12.0.10.0-ubuntu               69f66523df16   About a minute ago       1.78GB
-ace-full         12.0.10.0-ubuntu               2b77ec0f9a71        2 minutes ago       4.15GB
-ace-minimal      12.0.10.0-ubuntu               0b662240db80       13 minutes ago        738MB
-ace-minimal      12.0.10.0-alpine               c5d126442f73       15 minutes ago        644MB
+ace-minimal      13.0.1.0-alpine-java8         f5fd8880aac2   14 hours ago     723MB
+ace-minimal      13.0.1.0-alpine               0d0a36b729ed   14 hours ago     772MB
+ace-minimal      13.0.1.0-alpine-mqclient      0ed6a3e42872   13 minutes ago   915MB
+ace-minimal      13.0.1.0-ubuntu               42f4213b7872   14 hours ago     1.13GB
+ace-basic        13.0.1.0-ubuntu               68f30d39fc7a   14 hours ago     2.61GB
+ace-full         13.0.1.0-ubuntu               e193df427153   14 hours ago     4.94GB
+```
+
+Compressed sizes on DockerHub:
+
+```
+ace-minimal      13.0.1.0-alpine-java8         421.04 MB
+ace-minimal      13.0.1.0-alpine               397.06 MB
+ace-minimal      13.0.1.0-alpine-mqclient      441.58 MB
+ace-minimal      13.0.1.0-ubuntu               588.08 MB
+ace-basic        13.0.1.0-ubuntu               1.18 GB
+ace-full         13.0.1.0-ubuntu               2.36 GB
 ```
 
 Some of these will fit into the IBM Cloud container registry free tier due to compression, but ace-full and ace-basic are too big for that.
