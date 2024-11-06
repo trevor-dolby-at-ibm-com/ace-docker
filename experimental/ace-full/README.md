@@ -62,9 +62,9 @@ standard ACE profile banner, and at that point it should be possible to start th
 MQSI 12.0.4.0
 /opt/ibm/ace-12/server
 
-(ACE_12:)aceuser@tdolby-laptop:/$ /opt/ibm/ace-12/ace tools
+(ACE_13:)aceuser@tdolby-laptop:/$ /opt/ibm/ace-12/ace tools
 Starting App Connect Enterprise Toolkit interactively
-(ACE_12:)aceuser@tdolby-laptop:/$
+(ACE_13:)aceuser@tdolby-laptop:/$
 ```
 
 The toolkit may take some time to start, but should succeed in bringing up a splash screen 
@@ -75,7 +75,7 @@ and then a prompt for a workspace location.
 Attempting to run the Xvfb command from the mqsicreatebar section above while also using the
 X-Windows forwarding described in this section will lead to errors:
 ```
-(ACE_12:)aceuser@tdolby-laptop:/$ Xvfb
+(ACE_13:)aceuser@tdolby-laptop:/$ Xvfb
 _XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed
 _XSERVTransMakeAllCOTSServerListeners: server already running
 (EE)
