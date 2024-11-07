@@ -126,6 +126,9 @@ RUN ( echo "Passw0rd" ; echo "Passw0rd" ) | adduser -u 1001 -h /home/aceuser -s 
 # Switch off the components that aren't in the image
 COPY minimal-image.components.yaml /opt/ibm/ace-13/image.components.yaml
 
+# This seems to be needed for OpenShift support due to random userids at runtime
+RUN chmod -R 777 /home/aceuser /var/mqsi || /bin/true
+
 # aceuser
 USER 1001
 
