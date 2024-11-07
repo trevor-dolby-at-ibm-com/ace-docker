@@ -39,6 +39,9 @@ RUN useradd --uid 1001 --create-home --home-dir /home/aceuser --shell /bin/bash 
   && su - aceuser -c "export LICENSE=accept && . /opt/ibm/ace-13/server/bin/mqsiprofile && mqsicreateworkdir /home/aceuser/ace-server" \
   && echo ". /opt/ibm/ace-13/server/bin/mqsiprofile" >> /home/aceuser/.bashrc
 
+# This seems to be needed for OpenShift support due to random userids at runtime
+RUN chmod -R 777 /home/aceuser /var/mqsi || /bin/true
+
 # aceuser
 USER 1001
 ENTRYPOINT ["bash"]
