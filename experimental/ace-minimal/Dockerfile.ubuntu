@@ -101,6 +101,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Switch off the components that aren't in the image
 COPY minimal-image.components.yaml /opt/ibm/ace-13/image.components.yaml
 
+# This seems to be needed for OpenShift support due to random userids at runtime
+RUN chmod -R 777 /home/aceuser /var/mqsi || /bin/true
+
 # aceuser
 USER 1001
 
