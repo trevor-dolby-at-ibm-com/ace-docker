@@ -6,7 +6,7 @@ Dockefiles in the following directories are used for various purposes:
 
 - ace-full can run the full product, including mqsicreatebar with a virtual X server.
 - ace-basic can run the product server, including all files except the toolkit.
-- ace-minimal can run simple servers with a non-root user.
+- ace-minimal can run simple servers with a non-root user, and can be configured to install an MQ client.
 - ace-sample contains a sample BAR file and Dockerfiles for building runnable images to serve HTTP clients.
 - devcontainers is used with GitHub Codespaces to allow container-based development with VisualStudio Code in a web browser.
 
