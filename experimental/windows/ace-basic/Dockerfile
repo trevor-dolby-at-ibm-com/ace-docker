@@ -5,8 +5,8 @@ FROM ${FROMIMAGE}
 # docker build -t ace-basic:13.0.1.0-windows .
 
 # Update as needed
-#ARG DOWNLOAD_URL=https://iwm.dhe.ibm.com/sdfdl/v2/regs2/mbford/Xa.2/Xb.WJL1CuPI9gANmbDdDxOhZ8PDHiJ0fYKPUUM7e4LXUys/Xc.13.0.1.0-ACE-WIN64-EVALUATION.zip/Xd./Xf.lPr.D1vk/Xg.12203400/Xi.swg-wmbfd/XY.regsrvs/XZ.224GETTSkG6f3cguPd6ugJwv0vB5Q9nY/13.0.1.0-ACE-WIN64-EVALUATION.zip
-ARG DOWNLOAD_URL=http://10.0.0.201:49177/ace/13.0.1.0-ACE-WIN64-EVALUATION.zip
+ARG DOWNLOAD_URL=https://iwm.dhe.ibm.com/sdfdl/v2/regs2/mbford/Xa.2/Xb.WJL1CuPI9gANmbDdDxOhZ8PDHiJ0fYKPUUM7e4LXUys/Xc.13.0.1.0-ACE-WIN64-EVALUATION.zip/Xd./Xf.lPr.D1vk/Xg.12203400/Xi.swg-wmbfd/XY.regsrvs/XZ.224GETTSkG6f3cguPd6ugJwv0vB5Q9nY/13.0.1.0-ACE-WIN64-EVALUATION.zip
+#ARG DOWNLOAD_URL=http://10.0.0.201:49177/ace/13.0.1.0-ACE-WIN64-EVALUATION.zip
 
 WORKDIR c:\\tmp
 
