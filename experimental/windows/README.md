@@ -1,6 +1,6 @@
 # Windows containers
 
-Simple docker images for ACE v12 on Windows, using Windows containers. These containers
+Simple docker images for ACE v13 on Windows, using Windows containers. These containers
 will run Windows Server Core, and are not running Linux containers on Windows.
 
 Dockefiles in the following directories are used for various purposes:
