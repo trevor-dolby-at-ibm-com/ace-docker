@@ -50,8 +50,11 @@ REM [0660:0760][2023-03-10T17:21:57]i000: Initializing string variable 'InstallG
 REM 
 REM **************************************************************** 
 cd c:\tmp\ace-unzip\
+
+REM Note change from v12 to v13
+REM .\ACESetup12.0.10.0.exe /quiet LICENSE_ACCEPTED=true InstallFolder=C:\ace-12 InstallToolkit=0 InstallGAC=0 InstallElectronApp=0
 .\ACESetup13.0.1.0.exe -silent -installFolder C:\ace-13 -licenseAccept yes -anonymousUsageStatistics no -installToolkit no -installWSRRnodes no -installElectronApp no 
-REM .\ACESetup13.0.1.0.exe /quiet LICENSE_ACCEPTED=true InstallFolder=C:\ace-13 InstallToolkit=0 InstallGAC=0 InstallElectronApp=0
+
 REM Install the .Net support DLLs
 call c:\ace-13\server\bin\runCommand.cmd C:\ace-13\server\bin\mqsiAssemblyInstall -i C:\ace-13\server\bin\IBM.Broker.Plugin.dll
 call c:\ace-13\server\bin\runCommand.cmd C:\ace-13\server\bin\mqsiAssemblyInstall -i C:\ace-13\server\bin\IBM.Broker.Support.dll
