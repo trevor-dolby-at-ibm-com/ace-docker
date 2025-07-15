@@ -2,13 +2,13 @@
 
 # Later versions from the same site, or else via the Developer edition download site linked from
 # https://www.ibm.com/docs/en/app-connect/13.0?topic=enterprise-download-ace-developer-edition-get-started
-export DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/13.0.1.0-ACE-LINUX64-EVALUATION.tar.gz
-#export DOWNLOAD_URL=http://192.168.1.70:49177/ace/13.0.1.0-ACE-LINUX64-EVALUATION.tar.gz
-export PRODUCT_VERSION=13.0.1.0
+export DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/13.0.4.0-ACE-LINUX64-EVALUATION.tar.gz
+#export DOWNLOAD_URL=http://192.168.1.70:49177/ace/13.0.4.0-ACE-LINUX64-EVALUATION.tar.gz
+export PRODUCT_VERSION=13.0.4.0
 
 # Used for ace-minimal and ace-devcontainer mqclient variants
-export MQ_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqdev/redist/9.4.1.0-IBM-MQC-Redist-LinuxX64.tar.gz
-#export DOWNLOAD_CONNECTION_COUNT=10
+export MQ_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqdev/redist/9.4.3.0-IBM-MQC-Redist-LinuxX64.tar.gz
+export DOWNLOAD_CONNECTION_COUNT=10
 
 
 # Exit on error
