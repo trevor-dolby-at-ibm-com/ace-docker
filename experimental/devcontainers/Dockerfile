@@ -12,6 +12,9 @@ ARG DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/
 # Can be set higher if needed
 ARG DOWNLOAD_CONNECTION_COUNT=1
 
+# Override for local builds
+ARG COMPANY_NAME=ace-devcontainer
+
 # Prevent errors about having no terminal when using apt-get
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -43,7 +46,8 @@ RUN apt-get update && apt-get install -y aria2 zip binutils && \
     if [ $(uname -m) = x86_64 ]; then apt-get remove -y zip binutils binutils-common libbinutils binutils-x86-64-linux-gnu; else apt-get remove -y zip binutils binutils-common libbinutils; fi && \
     rm -rf /var/lib/apt/lists/*  && \
     rm -rf /opt/ibm/ace-13/common/java17/jmods && \
-    /opt/ibm/ace-13/ace make registry global accept license deferred
+    /opt/ibm/ace-13/ace accept license --silently --make-registry-global --company-name "${COMPANY_NAME}" && \
+    sed -i "s|LICENSE_ACCEPTED=1|LICENSE_ACCEPTED=2|g" /opt/ibm/ace-13/server/bin/mqsiprofile
 
 # Source profile automatically
 RUN usermod -a -G mqbrkrs vscode \

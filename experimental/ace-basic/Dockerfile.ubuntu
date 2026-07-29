@@ -18,6 +18,9 @@ ARG DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/
 # Can be set higher if needed
 ARG DOWNLOAD_CONNECTION_COUNT=1
 
+# Override for local builds
+ARG COMPANY_NAME=ace-basic
+
 # Prevent errors about having no terminal when using apt-get
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -30,7 +33,8 @@ RUN apt-get update && apt-get install -y aria2 && \
     tar -zxf *13.0*tar.gz --exclude=tools --exclude server/bin/TADataCollector.sh --exclude server/nodejs_partial --exclude server/transformationAdvisor/ta-plugin-ace.jar --directory /opt/ibm && \
     rm -f *13.0*tar.gz && \
     mv /opt/ibm/ace-13* /opt/ibm/ace-13 && \
-    /opt/ibm/ace-13/ace make registry global accept license deferred
+    /opt/ibm/ace-13/ace accept license --silently --make-registry-global --company-name "${COMPANY_NAME}" && \
+    sed -i "s|LICENSE_ACCEPTED=1|LICENSE_ACCEPTED=2|g" /opt/ibm/ace-13/server/bin/mqsiprofile
 
 # Create a user to run as, create the ace workdir, and chmod script files
 RUN useradd --uid 1001 --create-home --home-dir /home/aceuser --shell /bin/bash -G mqbrkrs,sudo aceuser \
