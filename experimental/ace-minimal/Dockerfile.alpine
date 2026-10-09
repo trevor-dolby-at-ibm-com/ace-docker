@@ -116,9 +116,10 @@ RUN mkdir -p /opt/ibm && \
     ln -s . /opt/ibm/ace-13/common/java17/jre 
 
 # Issues with 5.1.4(1)-release (x86_64-alpine-linux-musl) on alpine
-RUN sed -i 's/\/bin\/bash/\/bin\/mksh/g' /opt/ibm/ace-13/ace /opt/ibm/ace-13/server/bin/mqsicreateworkdir /opt/ibm/ace-13/server/bin/mqsipackagebar
+# (no longer an issue with ACE 13.0.9)
+#RUN sed -i 's/\/bin\/bash/\/bin\/mksh/g' /opt/ibm/ace-13/ace /opt/ibm/ace-13/server/bin/mqsicreateworkdir /opt/ibm/ace-13/server/bin/mqsipackagebar
 
-RUN bash -c '. /etc/profile.d/profile-with-product-java17-paths.sh && /opt/ibm/ace-13/ace accept license --silently --make-registry-global --company-name "${COMPANY_NAME}" && sed -i "s|LICENSE_ACCEPTED=1|LICENSE_ACCEPTED=2|g" /opt/ibm/ace-13/server/bin/mqsiprofile'
+RUN bash -c '/opt/ibm/ace-13/ace accept license --silently --make-registry-global --company-name "${COMPANY_NAME}" && sed -i "s|LICENSE_ACCEPTED=1|LICENSE_ACCEPTED=2|g" /opt/ibm/ace-13/server/bin/mqsiprofile'
 
 # Set BASH_ENV to source mqsiprofile when using docker exec bash -c
 ENV BASH_ENV=/etc/profile.d/profile-with-product-java17-paths.sh
